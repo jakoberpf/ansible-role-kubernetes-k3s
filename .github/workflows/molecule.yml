@@ -28,4 +28,4 @@
             run: ansible-galaxy collection install community.docker
     
           - name: Run molecule
-            run: "cd molecule/default && molecule test"
+            run: "molecule test"

@@ -1,2 +1,7 @@
 ---
 # tasks file for k3s
+
+- name: Install nano package
+  ansible.builtin.apt:
+    name: nano
+    state: present

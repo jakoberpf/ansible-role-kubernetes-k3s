@@ -4,18 +4,21 @@ dependency:
   options:
     requirements-file: requirements.yml
 platforms:
-  - name: master-1
-    # you might want to add your own variables here based on what provisioning
-    # you are doing like:
-    image: ubuntu:20.04
+  - name: debian_bookworm
+    image: docker.io/debian:bookworm
     pre_build_image: true
-  - name:  master-2
-    # you might want to add your own variables here based on what provisioning
-    # you are doing like:
-    image: ubuntu:20.04
+  - name: debian_bullseye
+    image: docker.io/debian:bullseye
     pre_build_image: true
-  - name:  master-3
-    # you might want to add your own variables here based on what provisioning
-    # you are doing like:
-    image: ubuntu:20.04
+  - name: ubuntu_22.04
+    image: docker.io/ubuntu:22.04
+    pre_build_image: true
+  - name: ubuntu_20.04
+    image: docker.io/ubuntu:20.04
+    pre_build_image: true
+  - name: ubuntu_18.04
+    image: docker.io/ubuntu:18.04
+    pre_build_image: true
+  - name: ubuntu_16.04
+    image: docker.io/ubuntu:16.04
     pre_build_image: true

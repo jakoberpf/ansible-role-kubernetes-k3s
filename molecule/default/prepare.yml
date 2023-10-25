@@ -3,7 +3,7 @@
 - name: Prepare
   hosts: all
   gather_facts: false
-  vars:
+  vars: # https://www.toptechskills.com/ansible-tutorials-courses/how-to-fix-usr-bin-python-not-found-error-tutorial/
     baseline_command: |
       if [ $(command -v apt-get) ]; then apt-get update && apt-get upgrade -y && apt-get install -y python3 sudo bash && apt-get clean; fi
     #  elif [ $(command -v zypper) ]; then zypper refresh && zypper update -y && zypper install -y python sudo bash python-xml && zypper clean -a; \

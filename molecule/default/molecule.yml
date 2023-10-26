@@ -67,3 +67,8 @@ platforms:
       - k3s_node
     children:
       - k3s_cluster
+# provisioner:
+#   name: ansible
+#   log: true
+#   env:
+#     ANSIBLE_ROLES_PATH: "../../roles"

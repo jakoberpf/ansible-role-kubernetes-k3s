@@ -16,14 +16,15 @@
     state: present
   when: ansible_os_family == "Alpine"
 
-# - hosts: k3s_cluster
-#   gather_facts: yes
-#   roles:
-#     - role: prereq
-#       become: true
-#     - role: download
-#       become: true
+- name: Include preparation role
+  ansible.builtin.include_role:
+    name: prereq
+  when: inventory_hostname in groups.k3s_cluster
 
+- name: Include download role
+  ansible.builtin.include_role:
+    name: download
+  when: inventory_hostname in groups.k3s_cluster
 
 # - hosts: k3s_master
 #   roles:

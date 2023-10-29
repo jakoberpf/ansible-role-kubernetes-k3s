@@ -4,32 +4,20 @@
 - name: "Gather facts"
   ansible.builtin.gather_facts:
 
-- name: Install nano package
-  ansible.builtin.apt:
-    name: nano
-    state: present
-  when: ansible_os_family == "Debian"
-
-- name: Install nano package
-  ansible.builtin.apk:
-    name: nano
-    state: present
-  when: ansible_os_family == "Alpine"
-
-- name: Include preparation role
-  ansible.builtin.include_role:
-    name: prereq
+- name: Include preparation tasks
+  ansible.builtin.include_tasks:
+    file: pre/prerequisites.yml
   when: inventory_hostname in groups.k3s_cluster
 
-- name: Include download role
-  ansible.builtin.include_role:
-    name: download
+- name: Include download tasks
+  ansible.builtin.include_tasks:
+    file: pre/download.yml
   when: inventory_hostname in groups.k3s_cluster
 
-# - hosts: k3s_master
-#   roles:
-#     - role: k3s/master
-#       become: true
+# - name: Include k3s master tasks
+#   ansible.builtin.include_tasks:
+#     file: k3s/master/tasks/main.yml
+#   when: inventory_hostname in groups.k3s_master
 
 # - hosts: k3s_node
 #   roles:

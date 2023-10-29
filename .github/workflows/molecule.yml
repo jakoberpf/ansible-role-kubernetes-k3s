@@ -22,7 +22,7 @@
               python-version: '3.x'
     
           - name: Install dependencies.
-            run: pip install yamllint ansible-lint ansible "molecule[lint,docker]"
+            run: pip install yamllint ansible ansible-lint molecule molecule-plugins "molecule-plugins[docker]" netaddr
     
           - name: Install Galaxy dependencies.
             run: ansible-galaxy collection install community.docker

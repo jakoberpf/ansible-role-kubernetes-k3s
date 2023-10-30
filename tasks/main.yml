@@ -14,10 +14,10 @@
     file: pre/download.yml
   when: inventory_hostname in groups.k3s_cluster
 
-# - name: Include k3s master tasks
-#   ansible.builtin.include_tasks:
-#     file: k3s/master/tasks/main.yml
-#   when: inventory_hostname in groups.k3s_master
+- name: Include k3s master tasks
+  ansible.builtin.include_tasks:
+    file: k3s/master/tasks/main.yml
+  when: inventory_hostname in groups.k3s_master
 
 # - hosts: k3s_node
 #   roles:

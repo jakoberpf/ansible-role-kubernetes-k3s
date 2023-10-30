@@ -62,7 +62,14 @@ platforms:
       - k3s_cluster
     privileged: true
     volumes:
-      - "/sys/fs/cgroup:/sys/fs/cgroup:rw"
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    security_opts:
+      - seccomp=unconfined
+    capabilities:
+      - SYS_ADMIN
+    tmpfs:
+      - /tmp
+      - /run
   - name: ubuntu_22.04
     image: docker.io/ubuntu:22.04
     pre_build_image: true
@@ -72,7 +79,14 @@ platforms:
       - k3s_cluster
     privileged: true
     volumes:
-      - "/sys/fs/cgroup:/sys/fs/cgroup:rw"
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    security_opts:
+      - seccomp=unconfined
+    capabilities:
+      - SYS_ADMIN
+    tmpfs:
+      - /tmp
+      - /run
   - name: ubuntu_20.04
     image: docker.io/ubuntu:20.04
     pre_build_image: true
@@ -82,7 +96,14 @@ platforms:
       - k3s_cluster
     privileged: true
     volumes:
-      - "/sys/fs/cgroup:/sys/fs/cgroup:rw"
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    security_opts:
+      - seccomp=unconfined
+    capabilities:
+      - SYS_ADMIN
+    tmpfs:
+      - /tmp
+      - /run
   # - name: ubuntu_18.04
   #   image: docker.io/ubuntu:18.04
   #   pre_build_image: true

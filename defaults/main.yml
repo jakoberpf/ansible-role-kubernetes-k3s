@@ -5,14 +5,16 @@ k3s_version: v1.25.15-rc2+k3s1
 
 systemd_dir: /etc/systemd/system
 
+default_kubeconfig: /etc/rancher/k3s/k3s.yaml
+
 # Set your timezone
 # system_timezone: "Your/Timezone"
 
 # interface which will be used for flannel
 flannel_iface: "eth0"
 
-# apiserver_endpoint is virtual ip-address which will be configured on each master
-apiserver_endpoint: "192.168.1.10"
+# apiserver_endpoint is virtual ip-address or dns host which will be configured on each master
+apiserver_endpoint: "<replaced>"
 
 # k3s_token is required masters can talk together securely
 # this token should be alpha numeric only
@@ -68,6 +70,9 @@ kube_vip_iface: null
 kube_vip_tag_version: "v0.5.12"
 
 metal_lb_deploy: false
+
+# Timeout to wait for MetalLB services to come up
+metal_lb_available_timeout: 120s
 
 # metallb type frr or native
 metal_lb_type: "native"

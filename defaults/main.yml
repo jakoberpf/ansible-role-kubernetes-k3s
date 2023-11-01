@@ -57,6 +57,8 @@ extra_server_args: >-
 extra_agent_args: >-
   {{ extra_args }}
 
+kube_vip_deploy: false
+
 # If you want to explicitly define an interface that ALL control nodes
 # should use to propagate the VIP, define it here. Otherwise, kube-vip
 # will determine the right interface automatically at runtime.
@@ -64,6 +66,8 @@ kube_vip_iface: null
 
 # image tag for kube-vip
 kube_vip_tag_version: "v0.5.12"
+
+metal_lb_deploy: false
 
 # metallb type frr or native
 metal_lb_type: "native"

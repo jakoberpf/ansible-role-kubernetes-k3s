@@ -15,18 +15,16 @@
 
 - name: Deploy vip manifest
   include_tasks: vip.yml
+  when: kube_vip_deploy is true
 
 - name: Deploy metallb manifest
   include_tasks: metallb.yml
+  when: metal_lb_deploy is true
 
 - name: Setting host facts using complex arguments
   ansible.builtin.set_fact:
     k3s_node_ip: "{{ k3s_node_ip }}"
   when: hostvars[groups['k3s_master'][0]].k3s_node_ip is undefined # and ansible_hostname is hostvars[groups['k3s_master'][0]].hostname
-
-- name: Print hostvars[groups['k3s_master'][0]].k3s_node_ip
-  ansible.builtin.debug:
-    msg: "{{ hostvars[groups['k3s_master'][0]].k3s_node_ip }}"
 
 - name: Init cluster inside the transient k3s-init service
   command:
@@ -42,7 +40,7 @@
       command:
         cmd: k3s kubectl get nodes -l "node-role.kubernetes.io/master=true" -o=jsonpath="{.items[*].metadata.name}"
       register: nodes
-      until: nodes.rc == 0 and (nodes.stdout.split() | length) == (groups['master'] | length)
+      until: nodes.rc == 0 and (nodes.stdout.split() | length) == (groups['k3s_master'] | length)
       retries: "{{ retry_count | default(20) }}"
       delay: 10
       changed_when: false

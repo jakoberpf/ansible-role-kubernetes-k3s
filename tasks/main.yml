@@ -24,12 +24,7 @@
     file: k3s/node/node/main.yml
   when: inventory_hostname in groups.k3s_node
 
-# - hosts: k3s_node
-#   roles:
-#     - role: k3s/node
-#       become: true
-
-# - hosts: k3s_master
-#   roles:
-#     - role: post
-#       become: true
+- name: Include post tasks
+  ansible.builtin.include_tasks:
+    file: post/main.yml
+  when: inventory_hostname in groups.k3s_master

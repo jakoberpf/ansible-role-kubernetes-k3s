@@ -1,0 +1,9 @@
+---
+- name: Deploy metallb pool
+  include_tasks: metallb.yml
+  when: metal_lb_deploy is true
+
+- name: Remove tmp directory used for manifests
+  file:
+    path: /tmp/k3s
+    state: absent

@@ -1,7 +1,30 @@
 ---
 # tasks file for k3s
 
-- name: Install nano package
-  ansible.builtin.apt:
-    name: nano
-    state: present
+- name: "Gather facts"
+  ansible.builtin.gather_facts:
+
+- name: Include preparation tasks
+  ansible.builtin.include_tasks:
+    file: pre/prerequisites.yml
+  when: inventory_hostname in groups.k3s_cluster
+
+- name: Include download tasks
+  ansible.builtin.include_tasks:
+    file: pre/download.yml
+  when: inventory_hostname in groups.k3s_cluster
+
+- name: Include k3s master tasks
+  ansible.builtin.include_tasks:
+    file: k3s/master/tasks/main.yml
+  when: inventory_hostname in groups.k3s_master
+
+- name: Include k3s node tasks
+  ansible.builtin.include_tasks:
+    file: k3s/node/node/main.yml
+  when: inventory_hostname in groups.k3s_node
+
+- name: Include post tasks
+  ansible.builtin.include_tasks:
+    file: post/main.yml
+  when: inventory_hostname in groups.k3s_master

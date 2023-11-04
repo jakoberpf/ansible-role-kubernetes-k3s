@@ -60,13 +60,12 @@ platforms:
       - k3s_master
     children:
       - k3s_cluster
-    privileged: true
+    privileged: True
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    security_opts:
-      - seccomp=unconfined
     capabilities:
       - SYS_ADMIN
+      - NET_ADMIN
     tmpfs:
       - /tmp
       - /run
@@ -77,13 +76,12 @@ platforms:
       - k3s_node
     children:
       - k3s_cluster
-    privileged: true
+    privileged: True
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    security_opts:
-      - seccomp=unconfined
     capabilities:
       - SYS_ADMIN
+      - NET_ADMIN
     tmpfs:
       - /tmp
       - /run
@@ -94,13 +92,12 @@ platforms:
       - k3s_node
     children:
       - k3s_cluster
-    privileged: true
+    privileged: True
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    security_opts:
-      - seccomp=unconfined
     capabilities:
       - SYS_ADMIN
+      - NET_ADMIN
     tmpfs:
       - /tmp
       - /run

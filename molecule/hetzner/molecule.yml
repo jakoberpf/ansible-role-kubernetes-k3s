@@ -1,0 +1,25 @@
+---
+driver:
+  name: molecule_hetznercloud
+platforms:
+  - name: instance-1
+    image: debian-12
+    server_type: cx11
+    location: hel1
+    volumes:
+      - name: volume-1
+        size: 10
+  - name: instance-2
+    image: debian-12
+    server_type: cx11
+    location: hel1
+    volumes:
+      - name: volume-1
+        size: 10
+  - name: instance-3
+    image: debian-12
+    server_type: cx11
+    location: hel1
+    volumes:
+      - name: volume-1
+        size: 10

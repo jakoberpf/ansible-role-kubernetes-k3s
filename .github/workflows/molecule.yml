@@ -27,8 +27,8 @@
           - name: Install Galaxy dependencies.
             run: ansible-galaxy collection install community.docker
     
-          - name: Run molecule
-            run: "molecule test"
+          - name: Run molecule on hetzner
+            run: "molecule test -s hetzner"
             env:
               PY_COLORS: '1'
               ANSIBLE_FORCE_COLOR: '1'

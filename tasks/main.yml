@@ -19,10 +19,10 @@
     file: k3s/master/tasks/main.yml
   when: inventory_hostname in groups.k3s_master
 
-- name: Include k3s node tasks
-  ansible.builtin.include_tasks:
-    file: k3s/node/main.yml
-  when: inventory_hostname in groups.k3s_node
+# - name: Include k3s node tasks
+#   ansible.builtin.include_tasks:
+#     file: k3s/node/main.yml
+#   when: inventory_hostname in groups.k3s_node
 
 - name: Include post tasks
   ansible.builtin.include_tasks:

@@ -1,0 +1,55 @@
+---
+# This is an example playbook to execute Ansible tests.
+
+- name: Verify
+  hosts: all
+  gather_facts: false
+  tasks:
+
+  # check that k3s config file is present
+  - stat: path=/etc/rancher/k3s/k3s.yaml
+    register: k3s_config_file
+  - debug:
+      msg: "{{ k3s_config_file }}"
+  - name: Check for config existence
+    assert:
+      that:
+        - k3s_config_file.stat.exists
+        # - stereum_services_dir.stat.isdir is defined and stereum_services_dir.stat.isdir
+
+  # Check k3s config content
+  - command: cat /etc/rancher/k3s/k3s.yaml
+    register: k3s_config_file_content
+  - debug:
+      msg: "{{ k3s_config_file_content.stdout }}"
+  - name: Check for config content
+    assert:
+      that:
+        - k3s_config_file.stat.exists
+  
+  # Check k3s cluster-info
+  - command: kubectl cluster-info
+    register: k3s_cluster_info
+  - debug:
+      msg: "{{ k3s_cluster_info.stdout }}"
+  - name: Check for cluster-info content
+    assert:
+      that:
+        - "'\u001b[0;32mKubernetes control plane\u001b[0m is running at \u001b[0;33m' in k3s_cluster_info.stdout"
+
+  # # Docker installation
+  # - shell: docker info
+  #   register: stereum_docker_info
+  # - name: Check for docker
+  #   assert:
+  #     that:
+  #       - stereum_docker_info.rc == 0
+
+  # # Timesyncd
+  # - shell: timedatectl status
+  #   register: stereum_timesyncd_status
+  # - name: Check timedatectl status
+  #   assert:
+  #     that:
+  #       - stereum_timesyncd_status.rc == 0
+  #       - stereum_timesyncd_status.stdout.find("NTP service: active") != -1

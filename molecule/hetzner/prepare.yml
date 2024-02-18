@@ -1,0 +1,42 @@
+---
+
+- name: Prepare
+  hosts: all
+  gather_facts: false
+  no_log: "{{ molecule_no_log }}"
+  vars:
+    ssh_port: 22
+    ssh_user: root
+    ssh_path: "{{ lookup('env', 'MOLECULE_EPHEMERAL_DIRECTORY') }}/ssh_key"
+    # https://www.toptechskills.com/ansible-tutorials-courses/how-to-fix-usr-bin-python-not-found-error-tutorial/
+    baseline_command: |
+      if [ $(command -v apt-get) ]; then apt-get update && apt-get upgrade -y && apt-get install -y python3 sudo bash ca-certificates iproute2 && apt-get clean; \
+      elif [ $(command -v apk) ]; then apk update && apk add --no-cache python3 sudo bash ca-certificates iproute2; fi
+    #  elif [ $(command -v zypper) ]; then zypper refresh && zypper update -y && zypper install -y python sudo bash python-xml && zypper clean -a; \
+    #  elif [ $(command -v dnf) ]; then dnf makecache && dnf --assumeyes install python sudo python-devel python2-dnf bash && dnf clean all; \
+    #  elif [ $(command -v yum) ]; then yum makecache fast && yum update -y && yum install -y python sudo yum-plugin-ovl bash || true && sed -i 's/plugins=0/plugins=1/g' /etc/yum.conf && yum clean all; \
+ 
+  tasks:
+    - name: "Prep hosts for ansible"
+      ansible.builtin.raw: "{{ baseline_command }}"
+ 
+    - name: "Gather facts"
+      ansible.builtin.gather_facts:
+
+    - name: "[debian] Install nano package"
+      ansible.builtin.apt:
+        name: nano
+        state: present
+      when: ansible_os_family == "Debian"
+
+    - name: "[alpine] Install nano package"
+      community.general.apk:
+        name: nano
+        state: present
+      when: ansible_os_family == "Alpine"
+
+    - name: "[debian] Install procps package"
+      ansible.builtin.apt:
+        name: procps
+        state: present
+      when: ansible_os_family == "Debian"

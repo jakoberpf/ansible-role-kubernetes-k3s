@@ -7,6 +7,9 @@
         hosts: {}
         molecule: {}
   tasks:
+
+    ## Create Instance Container ##
+
     - name: Create a container
       community.docker.docker_container:
         name: "{{ item.name }}"
@@ -30,6 +33,8 @@
       loop: "{{ result.results }}"
       loop_control:
         label: "{{ item.container.Name }}"
+
+    ## Generate Inventory ##
 
     - name: Add container to molecule_inventory
       vars:

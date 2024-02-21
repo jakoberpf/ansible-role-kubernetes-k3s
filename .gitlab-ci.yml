@@ -8,6 +8,7 @@ test:
     - docker:dind
   before_script:
     - apt-get update && apt-get install -y python3-venv python3-pip
+    - python3 -m venv .venv && source .venv/bin/activate
     - pip install yamllint ansible ansible-lint molecule molecule-plugins molecule-plugins[docker] molecule-hetznercloud netaddr
   script:
     - molecule test --scenario-name hetzner

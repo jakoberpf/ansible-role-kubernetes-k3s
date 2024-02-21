@@ -1,0 +1,13 @@
+stages:
+  - test
+
+test:
+  stage: test
+  image: ubuntu:24.04
+  services:
+    - docker:dind
+  before_script:
+    - apt-get update && apt-get install -y python3-venv python3-pip
+    - pip install yamllint ansible ansible-lint molecule molecule-plugins molecule-plugins[docker] molecule-hetznercloud netaddr
+  script:
+    - molecule test --scenario-name hetzner

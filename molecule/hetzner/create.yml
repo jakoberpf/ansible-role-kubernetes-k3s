@@ -22,17 +22,17 @@
       register: generated_ssh_key
 
     - name: Register the SSH key name
-      set_fact:
+      ansible.builtin.set_fact:
         ssh_key_name: "molecule-generated-{{ 12345 | random | to_uuid }}"
 
     - name: Register SSH key for test instance(s)
-      hcloud_ssh_key:
+      hetzner.hcloud.hcloud_ssh_key:
         name: "{{ ssh_key_name }}"
         public_key: "{{ generated_ssh_key.ssh_public_key }}"
         state: present
 
     - name: Create molecule instance(s)
-      hcloud_server:
+      hetzner.hcloud.hcloud_server:
         name: "{{ item.name }}"
         server_type: "{{ item.server_type }}"
         ssh_keys:

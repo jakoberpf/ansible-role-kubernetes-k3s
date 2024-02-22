@@ -14,8 +14,8 @@
     ssh_path: "{{ lookup('env', 'MOLECULE_EPHEMERAL_DIRECTORY') }}/ssh_key"
   tasks:
     - name: Create SSH key
-      user:
-        name: "{{ lookup('env', 'USER') }}"
+      ansible.builtin.user:
+        name: gitlab-runner # "{{ lookup('env', 'USER') }}"
         generate_ssh_key: true
         ssh_key_file: "{{ ssh_path }}"
         force: true

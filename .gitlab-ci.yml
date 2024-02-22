@@ -4,8 +4,9 @@ stages:
 test:
   stage: test
   image: ubuntu:24.04
-  services:
-    - docker:dind
+  variables:
+    PY_COLORS: '1'
+    ANSIBLE_FORCE_COLOR: '1'
   before_script:
     - apt-get update && apt-get install -y python3-venv python3-pip
     - python3 -m venv .venv && source .venv/bin/activate

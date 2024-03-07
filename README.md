@@ -1,3 +1,6 @@
+- Take some inspiration from https://github.com/k3s-io/k3s-ansible
+- Take some inspiration from https://github.com/techno-tim/k3s-ansible/tree/master
+
 Role Name
 =========
 
